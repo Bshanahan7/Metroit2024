@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    [SerializeField] private float speed;
     private Rigidbody2D rb;
+    [SerializeField] private float speed;
     [SerializeField] private float jumpForce;
-    private bool isOnGround = false;
+    [SerializeField] private bool isJumping;
 
     private void Start()
     {
@@ -28,19 +28,18 @@ public class Player : MonoBehaviour
         {
             transform.Translate(Vector2.left * speed);
         }
-        if(Input.GetKeyDown(KeyCode.Space) && isOnGround)
+        if(Input.GetKeyDown(KeyCode.Space) && !isJumping)
         {
             rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+            isJumping = true;
         }
     }
 
-    private void OnCollisionEnter(Collision other)
+    private void OnCollisionEnter2D(Collision2D collision)
     {
-        //if(other.FindObjectWithTag("Floor"))
-        //{
-        //    isOnGround = true;
-        //}
-
-        //MAke this work plz thx find object with tag.
+        if(collision.gameObject.CompareTag("Floor"))
+        {
+            isJumping = false;
+        }
     }
 }
