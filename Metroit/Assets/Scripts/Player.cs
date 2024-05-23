@@ -7,7 +7,10 @@ public class Player : MonoBehaviour
     private Rigidbody2D rb;
     [SerializeField] private float speed;
     [SerializeField] private float jumpForce;
+    [SerializeField] private bool inTheAir;
+    [SerializeField] private float jumpStartTime;
     [SerializeField] private bool isJumping;
+    private float jumpTime;
 
     private void Start()
     {
@@ -16,6 +19,7 @@ public class Player : MonoBehaviour
     private void LateUpdate()
     {
         HandleMovement();
+        HandleJumping();
     }
     
     private void HandleMovement()
@@ -28,10 +32,40 @@ public class Player : MonoBehaviour
         {
             transform.Translate(Vector2.left * speed);
         }
-        if(Input.GetKeyDown(KeyCode.Space) && !isJumping)
+    }
+
+    private void HandleJumping()
+    {
+        if(Input.GetKey(KeyCode.Space) && !inTheAir)
         {
-            rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+            jumpTime = jumpStartTime;
+            rb.velocity = Vector2.up * jumpForce;
+            inTheAir = true;
             isJumping = true;
+        }
+        if(Input.GetKey(KeyCode.Space) && isJumping == true)
+        {
+            if(jumpTime > 0)
+            {
+                rb.velocity = Vector2.up * jumpForce;
+                jumpTime -= Time.deltaTime;
+            }
+            else
+            {
+                isJumping = false;
+            }
+        }
+        if(Input.GetKeyUp(KeyCode.Space))
+        {
+            isJumping = false;
+        }
+    }
+
+    private void HandleGun()
+    {
+        if(Input.GetKeyDown(KeyCode.E))
+        {
+            
         }
     }
 
@@ -39,7 +73,7 @@ public class Player : MonoBehaviour
     {
         if(collision.gameObject.CompareTag("Floor"))
         {
-            isJumping = false;
+            inTheAir = false;
         }
     }
 }
