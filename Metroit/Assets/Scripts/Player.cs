@@ -4,7 +4,10 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+
+    
     private Rigidbody2D rb;
+    [Header("Stuff")]
     [SerializeField] private float speed;
     [SerializeField] private float jumpForce;
     [SerializeField] private bool inTheAir;
@@ -65,7 +68,7 @@ public class Player : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.E))
         {
-            
+            //DO THIS :D
         }
     }
 
