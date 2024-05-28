@@ -4,16 +4,22 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-
-    
+    [Header("Component References")]
     private Rigidbody2D rb;
-    [Header("Stuff")]
+
+    [Header("GameObjects")]
+    [SerializeField] private GameObject bullet;
+    [SerializeField] private GameObject gunPoint;
+
+    [Header("Movement")]
     [SerializeField] private float speed;
     [SerializeField] private float jumpForce;
-    [SerializeField] private bool inTheAir;
     [SerializeField] private float jumpStartTime;
-    [SerializeField] private bool isJumping;
     private float jumpTime;
+    
+    [Header("Helpful booleans")]
+    [SerializeField] private bool isJumping;
+    [SerializeField] private bool inTheAir;
 
     private void Start()
     {
@@ -23,6 +29,7 @@ public class Player : MonoBehaviour
     {
         HandleMovement();
         HandleJumping();
+        HandleGun();
     }
     
     private void HandleMovement()
@@ -46,6 +53,7 @@ public class Player : MonoBehaviour
             inTheAir = true;
             isJumping = true;
         }
+
         if(Input.GetKey(KeyCode.Space) && isJumping == true)
         {
             if(jumpTime > 0)
@@ -68,10 +76,10 @@ public class Player : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.E))
         {
-            //DO THIS :D
+            Instantiate(bullet, gunPoint.transform.position, Quaternion.identity);
         }
     }
-
+    
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if(collision.gameObject.CompareTag("Floor"))

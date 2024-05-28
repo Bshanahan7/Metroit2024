@@ -247,9 +247,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 437289791}
-  - component: {fileID: 437289792}
   - component: {fileID: 437289793}
   - component: {fileID: 437289794}
+  - component: {fileID: 437289795}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -275,23 +275,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &437289792
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 437289790}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cf71b1fe80d685141b1add4f997381eb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 0.1
-  jumpForce: 5
-  inTheAir: 0
-  jumpStartTime: 0.5
-  isJumping: 0
 --- !u!50 &437289793
 Rigidbody2D:
   serializedVersion: 4
@@ -339,6 +322,25 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.7087086, y: 1.4304153}
   m_EdgeRadius: 0
+--- !u!114 &437289795
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 437289790}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cf71b1fe80d685141b1add4f997381eb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bullet: {fileID: 8007943092600173856, guid: 1c8ed065f61fea746b845ef5c82489dc, type: 3}
+  gunPoint: {fileID: 269453598}
+  speed: 5
+  jumpForce: 5
+  jumpStartTime: 4
+  isJumping: 0
+  inTheAir: 0
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
