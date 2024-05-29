@@ -20,6 +20,7 @@ public class Player : MonoBehaviour
     [Header("Helpful booleans")]
     [SerializeField] private bool isJumping;
     [SerializeField] private bool inTheAir;
+    public bool facingRight = true;
 
     private void Start()
     {
@@ -41,6 +42,14 @@ public class Player : MonoBehaviour
         if(Input.GetKey(KeyCode.A))
         {
             transform.Translate(Vector2.left * speed);
+        }
+        if(Input.GetKeyDown(KeyCode.A) && facingRight == true)
+        {
+            FlipPlayer();
+        }
+        if(Input.GetKeyDown(KeyCode.D) && facingRight == false)
+        {
+            FlipPlayer();
         }
     }
 
@@ -70,21 +79,30 @@ public class Player : MonoBehaviour
         {
             isJumping = false;
         }
+        
     }
 
     private void HandleGun()
     {
-        if(Input.GetKeyDown(KeyCode.E))
+        if(Input.GetKeyDown(KeyCode.E) && facingRight)
         {
             Instantiate(bullet, gunPoint.transform.position, Quaternion.identity);
         }
+        
     }
-    
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if(collision.gameObject.CompareTag("Floor"))
         {
             inTheAir = false;
         }
+    }
+    private void FlipPlayer()
+    {
+        Vector3 currentScale = gameObject.transform.localScale;
+        currentScale.x *= -1;
+        gameObject.transform.localScale = currentScale;
+
+        facingRight = !facingRight;
     }
 }
