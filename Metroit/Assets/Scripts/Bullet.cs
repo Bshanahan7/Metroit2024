@@ -14,13 +14,11 @@ public class Bullet : MonoBehaviour
     }
     private void Update()
     {
-        if(playerScript.facingRight == true)
-        {
-            transform.Translate(transform.right * bulletSpeed * Time.deltaTime); 
-        }
         if(playerScript.facingRight == false)
         {
-            transform.Translate(-transform.right * bulletSpeed * Time.deltaTime);
+            transform.Translate(Vector3.left * bulletSpeed * Time.deltaTime);
+        }else{
+            transform.Translate(transform.right * bulletSpeed * Time.deltaTime);
         }
         
     }

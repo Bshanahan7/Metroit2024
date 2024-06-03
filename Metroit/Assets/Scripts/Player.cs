@@ -6,10 +6,12 @@ public class Player : MonoBehaviour
 {
     [Header("Component References")]
     private Rigidbody2D rb;
+    private Animator playerAnim;
 
     [Header("GameObjects")]
     [SerializeField] private GameObject bullet;
     [SerializeField] private GameObject gunPoint;
+    [SerializeField] private GameObject playerVisual;
 
     [Header("Movement")]
     [SerializeField] private float speed;
@@ -25,6 +27,7 @@ public class Player : MonoBehaviour
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        playerAnim  = playerVisual.GetComponent<Animator>();
     }
     private void LateUpdate()
     {
@@ -38,10 +41,12 @@ public class Player : MonoBehaviour
         if(Input.GetKey(KeyCode.D))
         {
             transform.Translate(Vector2.right * speed);
+            playerAnim.SetTrigger("isMoving");
         }
         if(Input.GetKey(KeyCode.A))
         {
             transform.Translate(Vector2.left * speed);
+            playerAnim.SetTrigger("isMoving");
         }
         if(Input.GetKeyDown(KeyCode.A) && facingRight == true)
         {
@@ -84,9 +89,9 @@ public class Player : MonoBehaviour
 
     private void HandleGun()
     {
-        if(Input.GetKeyDown(KeyCode.E) && facingRight)
+        if(Input.GetKeyDown(KeyCode.E))
         {
-            Instantiate(bullet, gunPoint.transform.position, Quaternion.identity);
+            Instantiate(bullet, gunPoint.transform.position, gunPoint.transform.rotation);
         }
         
     }
