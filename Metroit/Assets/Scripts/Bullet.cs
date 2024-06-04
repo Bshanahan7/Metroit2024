@@ -7,6 +7,7 @@ public class Bullet : MonoBehaviour
     [SerializeField] private float bulletSpeed;
     private Player playerScript;
     [SerializeField] private GameObject player;
+    [SerializeField] private bool facingRight;
 
     private void Awake()
     {
@@ -14,13 +15,16 @@ public class Bullet : MonoBehaviour
     }
     private void Update()
     {
-        if(playerScript.facingRight == false)
+        facingRight = playerScript.facingRight;
+
+        if(playerScript.FacingRight() == true)
+        {
+            transform.Translate(Vector3.right * bulletSpeed * Time.deltaTime);
+        }
+        if(playerScript.FacingRight() == false)
         {
             transform.Translate(Vector3.left * bulletSpeed * Time.deltaTime);
-        }else{
-            transform.Translate(transform.right * bulletSpeed * Time.deltaTime);
         }
-        
     }
     private void OnCollisionEnter2D()
     {

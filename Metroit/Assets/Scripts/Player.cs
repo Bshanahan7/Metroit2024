@@ -22,6 +22,7 @@ public class Player : MonoBehaviour
     [Header("Helpful booleans")]
     [SerializeField] private bool isJumping;
     [SerializeField] private bool inTheAir;
+    [SerializeField] private bool isMoving;
     public bool facingRight = true;
 
     private void Start()
@@ -33,20 +34,26 @@ public class Player : MonoBehaviour
     {
         HandleMovement();
         HandleJumping();
+    }
+    private void Update()
+    {
         HandleGun();
+        HandleAnimations();
     }
     
     private void HandleMovement()
     {
         if(Input.GetKey(KeyCode.D))
         {
+            isMoving = true;
             transform.Translate(Vector2.right * speed);
-            playerAnim.SetTrigger("isMoving");
+            playerAnim.SetBool("isMoving", true); 
         }
         if(Input.GetKey(KeyCode.A))
         {
+            isMoving = true;
             transform.Translate(Vector2.left * speed);
-            playerAnim.SetTrigger("isMoving");
+            playerAnim.SetBool("isMoving", true);
         }
         if(Input.GetKeyDown(KeyCode.A) && facingRight == true)
         {
@@ -57,7 +64,23 @@ public class Player : MonoBehaviour
             FlipPlayer();
         }
     }
-
+    
+    private void HandleAnimations()
+    {
+        if(Input.GetKeyUp(KeyCode.D))
+        {
+            isMoving = false;
+        }
+        if(Input.GetKeyUp(KeyCode.A))
+        {
+            isMoving = false;
+        }
+        if(isMoving == false)
+        {
+            playerAnim.SetBool("isMoving", false);
+        }
+    }
+    
     private void HandleJumping()
     {
         if(Input.GetKey(KeyCode.Space) && !inTheAir)
@@ -86,14 +109,17 @@ public class Player : MonoBehaviour
         }
         
     }
-
     private void HandleGun()
     {
         if(Input.GetKeyDown(KeyCode.E))
         {
             Instantiate(bullet, gunPoint.transform.position, gunPoint.transform.rotation);
         }
-        
+    }
+    public bool FacingRight()
+    {
+        facingRight = true;
+        return facingRight;
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
