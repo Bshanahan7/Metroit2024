@@ -116,11 +116,6 @@ public class Player : MonoBehaviour
             Instantiate(bullet, gunPoint.transform.position, gunPoint.transform.rotation);
         }
     }
-    public bool FacingRight()
-    {
-        facingRight = true;
-        return facingRight;
-    }
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if(collision.gameObject.CompareTag("Floor"))

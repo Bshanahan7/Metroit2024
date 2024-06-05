@@ -17,11 +17,11 @@ public class Bullet : MonoBehaviour
     {
         facingRight = playerScript.facingRight;
 
-        if(playerScript.FacingRight() == true)
+        if(playerScript.facingRight == false)
         {
             transform.Translate(Vector3.right * bulletSpeed * Time.deltaTime);
         }
-        if(playerScript.FacingRight() == false)
+        if(playerScript.facingRight == true)
         {
             transform.Translate(Vector3.left * bulletSpeed * Time.deltaTime);
         }
