@@ -9,8 +9,6 @@ public class Player : MonoBehaviour
     private Animator playerAnim;
 
     [Header("GameObjects")]
-    [SerializeField] private GameObject bullet;
-    [SerializeField] private GameObject gunPoint;
     [SerializeField] private GameObject playerVisual;
 
     [Header("Movement")]
@@ -23,7 +21,7 @@ public class Player : MonoBehaviour
     [SerializeField] private bool isJumping;
     [SerializeField] private bool inTheAir;
     [SerializeField] private bool isMoving;
-    public bool facingRight = true;
+    [SerializeField] private bool facingRight = true;
 
     private void Start()
     {
@@ -37,7 +35,6 @@ public class Player : MonoBehaviour
     }
     private void Update()
     {
-        HandleGun();
         HandleAnimations();
     }
     
@@ -52,7 +49,7 @@ public class Player : MonoBehaviour
         if(Input.GetKey(KeyCode.A))
         {
             isMoving = true;
-            transform.Translate(Vector2.left * speed);
+            transform.Translate(Vector2.right * speed);
             playerAnim.SetBool("isMoving", true);
         }
         if(Input.GetKeyDown(KeyCode.A) && facingRight == true)
@@ -109,13 +106,6 @@ public class Player : MonoBehaviour
         }
         
     }
-    private void HandleGun()
-    {
-        if(Input.GetKeyDown(KeyCode.E))
-        {
-            Instantiate(bullet, gunPoint.transform.position, gunPoint.transform.rotation);
-        }
-    }
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if(collision.gameObject.CompareTag("Floor"))
@@ -125,10 +115,8 @@ public class Player : MonoBehaviour
     }
     private void FlipPlayer()
     {
-        Vector3 currentScale = gameObject.transform.localScale;
-        currentScale.x *= -1;
-        gameObject.transform.localScale = currentScale;
 
         facingRight = !facingRight;
+        transform.Rotate(0f, 180f, 0f);
     }
 }

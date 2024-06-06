@@ -4,27 +4,13 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-    [SerializeField] private float bulletSpeed;
-    private Player playerScript;
-    [SerializeField] private GameObject player;
-    [SerializeField] private bool facingRight;
+    private Rigidbody2D rb;
+    [SerializeField] private float speed = 20.0f;
 
     private void Awake()
     {
-        playerScript = player.GetComponent<Player>();
-    }
-    private void Update()
-    {
-        facingRight = playerScript.facingRight;
-
-        if(playerScript.facingRight == false)
-        {
-            transform.Translate(Vector3.right * bulletSpeed * Time.deltaTime);
-        }
-        if(playerScript.facingRight == true)
-        {
-            transform.Translate(Vector3.left * bulletSpeed * Time.deltaTime);
-        }
+        rb = GetComponent<Rigidbody2D>();
+        rb.velocity = transform.right * speed;
     }
     private void OnCollisionEnter2D()
     {
