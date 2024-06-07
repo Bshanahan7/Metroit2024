@@ -86,6 +86,7 @@ public class Player : MonoBehaviour
             rb.velocity = Vector2.up * jumpForce;
             inTheAir = true;
             isJumping = true;
+            playerAnim.SetBool("isJumping", true);
         }
 
         if(Input.GetKey(KeyCode.Space) && isJumping == true)
@@ -111,6 +112,7 @@ public class Player : MonoBehaviour
         if(collision.gameObject.CompareTag("Floor"))
         {
             inTheAir = false;
+            playerAnim.SetBool("isJumping", false);
         }
     }
     private void FlipPlayer()
