@@ -76,6 +76,14 @@ public class Player : MonoBehaviour
         {
             playerAnim.SetBool("isMoving", false);
         }
+        if(isMoving == true && Input.GetKeyDown(KeyCode.E))
+        {
+            playerAnim.SetBool("isRunningAndShooting", true);
+        }
+        else
+        {
+            playerAnim.SetBool("isRunningAndShooting", false);
+        }
     }
     
     private void HandleJumping()
